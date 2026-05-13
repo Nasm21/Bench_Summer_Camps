@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Benchmark Campamentos de Verano · Valle del Cauca 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;400;600;700;800;900&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #f0f2f5;
+  --sidebar-bg: #111111;
+  --sidebar-w: 230px;
+  --topbar-h: 58px;
+  --card-bg: #ffffff;
+  --card-shadow: 0 1px 4px rgba(0,0,0,0.08), 0 4px 16px rgba(0,0,0,0.05);
+  --card-shadow-hover: 0 4px 12px rgba(0,0,0,0.12), 0 12px 32px rgba(0,0,0,0.08);
+  --card-border: #e8eaed;
+  --primary: #8C0F13;
+  --accent: #C0151A;
+  --accent-light: #fce8e9;
+  --text: #1a1d23;
+  --text-muted: #6b7280;
+  --text-dim: #9ca3af;
+  --border: #e5e7eb;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:'Barlow',sans-serif; background:var(--bg); color:var(--text); display:flex; min-height:100vh; }
+
+/* SIDEBAR */
+#sidebar {
+  width:var(--sidebar-w); min-height:100vh; background:var(--sidebar-bg);
+  position:fixed; top:0; left:0; bottom:0; display:flex; flex-direction:column; z-index:200;
+}
+.sidebar-logo { padding:24px 22px 20px; border-bottom:1px solid #1e1e1e; }
+.sidebar-logo .brand {
+  font-family:'Barlow Condensed',sans-serif; font-weight:900; font-size:1.1rem;
+  letter-spacing:0.06em; color:#fff; text-transform:uppercase; line-height:1.2;
+}
+.sidebar-logo .brand span { color:var(--accent); }
+.sidebar-logo .sub { font-size:0.67rem; color:#555; margin-top:5px; letter-spacing:0.1em; text-transform:uppercase; }
+.nav-group-label { padding:20px 0 6px 22px; font-size:0.6rem; letter-spacing:0.15em; color:#444; text-transform:uppercase; font-weight:600; }
+.nav-link {
+  display:flex; align-items:center; gap:10px; padding:9px 22px;
+  font-size:0.8rem; color:#888; text-decoration:none;
+  transition:all 0.15s; border-left:2px solid transparent; cursor:pointer; font-weight:400;
+}
+.nav-link:hover { color:#fff; background:rgba(255,255,255,0.04); }
+.nav-link.active { color:#fff; background:rgba(192,21,26,0.12); border-left-color:var(--accent); font-weight:500; }
+.nav-icon { font-size:0.5rem; width:16px; text-align:center; flex-shrink:0; opacity:0.6; }
+.sidebar-footer { margin-top:auto; padding:16px; border-top:1px solid #1a1a1a; }
+.sidebar-copy { font-size:0.67rem; color:#333; text-align:center; letter-spacing:0.08em; }
+
+/* TOPBAR */
+#topbar {
+  position:fixed; top:0; left:var(--sidebar-w); right:0; height:var(--topbar-h);
+  background:#fff; border-bottom:1px solid var(--border);
+  display:flex; align-items:center; justify-content:space-between; padding:0 32px;
+  z-index:100; box-shadow:0 1px 3px rgba(0,0,0,0.06);
+}
+.topbar-left { display:flex; align-items:center; gap:12px; }
+.topbar-title { font-family:'Barlow Condensed',sans-serif; font-weight:700; font-size:1rem; letter-spacing:0.04em; color:var(--text); text-transform:uppercase; }
+.topbar-pill { background:var(--accent-light); color:var(--primary); font-size:0.68rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; padding:3px 10px; border-radius:20px; }
+.topbar-right { display:flex; align-items:center; gap:12px; }
+.topbar-meta { font-size:0.75rem; color:var(--text-muted); }
+#btn-pdf {
+  display:flex; align-items:center; gap:7px; padding:8px 18px;
+  background:var(--primary); color:#fff; border:none; border-radius:6px;
+  font-family:'Barlow Condensed',sans-serif; font-weight:700; font-size:0.82rem;
+  letter-spacing:0.06em; text-transform:uppercase; cursor:pointer; transition:all 0.18s;
+}
+#btn-pdf:hover { background:var(--accent); transform:translateY(-1px); box-shadow:0 4px 12px rgba(140,15,19,0.3); }
+#btn-pdf:disabled { opacity:0.55; cursor:not-allowed; transform:none; box-shadow:none; }
+
+/* MAIN */
+#main {
+  margin-left:var(--sidebar-w);
+  padding-top:calc(var(--topbar-h) + 28px);
+  padding-left:32px; padding-right:32px; padding-bottom:60px;
+  flex:1; max-width:1180px;
+}
+
+/* HERO */
+.hero {
+  background:var(--primary); border-radius:12px; padding:36px 40px;
+  margin-bottom:28px; position:relative; overflow:hidden; color:#fff;
+}
+.hero::before {
+  content:''; position:absolute; top:-80px; right:-80px;
+  width:320px; height:320px; border-radius:50%;
+  background:rgba(255,255,255,0.04); pointer-events:none;
+}
+.hero::after {
+  content:''; position:absolute; bottom:-40px; right:120px;
+  width:180px; height:180px; border-radius:50%;
+  background:rgba(255,255,255,0.03); pointer-events:none;
+}
+.hero-tag { font-family:'Barlow Condensed',sans-serif; font-size:0.7rem; letter-spacing:0.2em; color:rgba(255,255,255,0.5); text-transform:uppercase; margin-bottom:10px; }
+.hero h1 { font-family:'Barlow Condensed',sans-serif; font-weight:900; font-size:2.5rem; letter-spacing:0.02em; line-height:1.08; color:#fff; margin-bottom:16px; }
+.hero-meta { font-size:0.8rem; color:rgba(255,255,255,0.6); display:flex; gap:20px; flex-wrap:wrap; }
+.hero-meta span { display:flex; align-items:center; gap:5px; }
+
+/* KPI */
+.kpi-strip { display:grid; grid-template-columns:repeat(5,1fr); gap:14px; margin-bottom:28px; }
+.kpi-card {
+  background:var(--card-bg); border:1px solid var(--card-border); border-radius:10px;
+  padding:18px 16px; box-shadow:var(--card-shadow);
+  transition:box-shadow 0.2s,transform 0.2s; position:relative; overflow:hidden;
+}
+.kpi-card:hover { box-shadow:var(--card-shadow-hover); transform:translateY(-2px); }
+.kpi-card::after {
+  content:''; position:absolute; top:0; left:0; right:0;
+  height:3px; border-radius:10px 10px 0 0;
+}
+.kpi-card.c1::after { background:var(--accent); }
+.kpi-card.c2::after { background:#059669; }
+.kpi-card.c3::after { background:#d97706; }
+.kpi-card.c4::after { background:#6366f1; }
+.kpi-card.c5::after { background:#0891b2; }
+.kpi-label { font-size:0.67rem; letter-spacing:0.12em; color:var(--text-muted); text-transform:uppercase; margin-bottom:8px; font-weight:600; }
+.kpi-val { font-family:'Barlow Condensed',sans-serif; font-weight:800; font-size:1.75rem; color:var(--text); line-height:1; }
+.kpi-sub { font-size:0.7rem; color:var(--text-dim); margin-top:5px; }
+
+/* SECTION */
+.section { margin-bottom:40px; }
+.section-header { margin-bottom:16px; }
+.section-title {
+  font-family:'Barlow Condensed',sans-serif; font-weight:800; font-size:1.25rem;
+  letter-spacing:0.04em; color:var(--text); text-transform:uppercase;
+  display:flex; align-items:center; gap:10px;
+}
+.section-title::before { content:''; width:4px; height:20px; background:var(--accent); border-radius:2px; flex-shrink:0; }
+.section-desc { font-size:0.8rem; color:var(--text-muted); margin-top:4px; margin-left:14px; }
+
+/* CARD */
+.card {
+  background:var(--card-bg); border:1px solid var(--card-border); border-radius:10px;
+  box-shadow:var(--card-shadow); transition:box-shadow 0.2s,transform 0.2s;
+}
+.card:hover { box-shadow:var(--card-shadow-hover); transform:translateY(-1px); }
+.card-pad { padding:22px 24px; }
+.chart-title { font-family:'Barlow Condensed',sans-serif; font-weight:700; font-size:0.82rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--text-muted); margin-bottom:14px; }
+
+/* GRIDS */
+.grid-2 { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+
+/* BULLETS */
+.bullets-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+.bullet-card {
+  background:var(--card-bg); border:1px solid var(--card-border); border-radius:8px;
+  padding:16px 18px; display:flex; gap:12px; align-items:flex-start;
+  box-shadow:var(--card-shadow); transition:box-shadow 0.2s;
+}
+.bullet-card:hover { box-shadow:var(--card-shadow-hover); }
+.bullet-icon { font-size:1rem; flex-shrink:0; margin-top:1px; }
+.bullet-text { font-size:0.81rem; color:var(--text-muted); line-height:1.58; }
+.bullet-text strong { color:var(--text); font-weight:600; }
+
+/* TABLES */
+.table-wrap { overflow-x:auto; }
+table { width:100%; border-collapse:collapse; font-size:0.79rem; }
+thead tr { border-bottom:2px solid var(--border); }
+th {
+  padding:10px 14px; text-align:left;
+  font-family:'Barlow Condensed',sans-serif; font-weight:700; font-size:0.72rem;
+  letter-spacing:0.1em; text-transform:uppercase; color:var(--text-muted);
+  white-space:nowrap; background:#f8f9fa;
+}
+td { padding:9px 14px; border-bottom:1px solid #f0f0f0; color:var(--text-muted); }
+tr:last-child td { border-bottom:none; }
+tr:hover td { background:#fafafa; color:var(--text); }
+.td-name { color:var(--text); font-weight:500; }
+.badge { display:inline-block; padding:2px 9px; border-radius:4px; font-size:0.67rem; font-weight:700; letter-spacing:0.06em; text-transform:uppercase; }
+.badge-rec { background:#ede9fe; color:#5b21b6; }
+.badge-ing { background:#d1fae5; color:#065f46; }
+.badge-art { background:#ffedd5; color:#9a3412; }
+.badge-dis { background:#fef3c7; color:#92400e; }
+.badge-idi { background:#ede9fe; color:#4c1d95; }
+.badge-otr { background:#f1f5f9; color:#475569; }
+.val-hi { color:#b91c1c !important; font-weight:600; }
+.val-lo { color:#059669 !important; font-weight:600; }
+
+/* FILTER */
+.filter-bar { display:flex; gap:8px; margin-bottom:14px; flex-wrap:wrap; }
+.filter-btn {
+  padding:5px 14px; border-radius:20px; border:1px solid var(--border);
+  background:var(--card-bg); color:var(--text-muted); font-size:0.74rem;
+  cursor:pointer; transition:all 0.15s; font-family:'Barlow',sans-serif; font-weight:500;
+}
+.filter-btn:hover { border-color:var(--accent); color:var(--accent); }
+.filter-btn.active { border-color:var(--accent); color:var(--accent); background:var(--accent-light); font-weight:600; }
+
+/* SEARCH */
+.search-wrap { margin-bottom:12px; }
+.search-wrap input {
+  width:100%; padding:9px 14px; background:var(--card-bg); border:1px solid var(--border);
+  border-radius:7px; color:var(--text); font-family:'Barlow',sans-serif; font-size:0.82rem; outline:none; transition:border-color 0.15s;
+}
+.search-wrap input:focus { border-color:var(--accent); }
+
+/* OUTLIER CARDS */
+.outlier-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+.outlier-card { background:var(--card-bg); border:1px solid var(--card-border); border-radius:10px; padding:20px; box-shadow:var(--card-shadow); }
+.outlier-card.hi { border-top:3px solid #ef4444; }
+.outlier-card.lo { border-top:3px solid #10b981; }
+.outlier-head { font-family:'Barlow Condensed',sans-serif; font-weight:800; font-size:0.85rem; text-transform:uppercase; letter-spacing:0.08em; margin-bottom:14px; }
+.outlier-head.hi { color:#b91c1c; }
+.outlier-head.lo { color:#065f46; }
+.outlier-item { margin-bottom:12px; padding-bottom:12px; border-bottom:1px solid #f0f0f0; }
+.outlier-item:last-child { margin-bottom:0; padding-bottom:0; border-bottom:none; }
+.outlier-item .on { font-weight:600; color:var(--text); font-size:0.82rem; }
+.outlier-item .od { font-size:0.74rem; color:var(--text-muted); margin-top:3px; line-height:1.5; }
+
+/* INFO */
+.info-banner { background:#fffbeb; border:1px solid #fde68a; border-radius:8px; padding:12px 16px; font-size:0.76rem; color:#92400e; margin-top:10px; }
+
+/* RANKING LABEL */
+.ranking-label { font-family:'Barlow Condensed',sans-serif; font-weight:700; font-size:0.78rem; text-transform:uppercase; letter-spacing:0.1em; margin-bottom:10px; display:flex; align-items:center; gap:7px; }
+.ranking-label.hi { color:#b91c1c; }
+.ranking-label.lo { color:#065f46; }
+
+/* PRINT */
+@media print {
+  @page { margin:14mm 12mm; }
+  body { background:#fff !important; color:#111 !important; display:block !important; }
+  #sidebar, #topbar { display:none !important; }
+  #main { margin-left:0 !important; padding-top:0 !important; padding-left:0 !important; padding-right:0 !important; max-width:100% !important; }
+  .hero { background-color:#8C0F13 !important; -webkit-print-color-adjust:exact !important; print-color-adjust:exact !important; }
+  .kpi-card,.card,.bullet-card,.outlier-card { box-shadow:none !important; transform:none !important; border:1px solid #ddd !important; background:#fff !important; -webkit-print-color-adjust:exact !important; print-color-adjust:exact !important; }
+  .kpi-card.c1::after { background:#C0151A !important; -webkit-print-color-adjust:exact !important; print-color-adjust:exact !important; }
+  .kpi-card.c2::after { background:#059669 !important; -webkit-print-color-adjust:exact !important; print-color-adjust:exact !important; }
+  .kpi-card.c3::after { background:#d97706 !important; -webkit-print-color-adjust:exact !important; print-color-adjust:exact !important; }
+  .kpi-card.c4::after { background:#6366f1 !important; -webkit-print-color-adjust:exact !important; print-color-adjust:exact !important; }
+  .kpi-card.c5::after { background:#0891b2 !important; -webkit-print-color-adjust:exact !important; print-color-adjust:exact !important; }
+  .grid-2,.bullets-grid,.outlier-grid { display:block !important; }
+  .grid-2>*,.bullets-grid>*,.outlier-grid>* { margin-bottom:12px !important; }
+  .card { overflow:visible !important; margin-bottom:14px; page-break-inside:avoid; }
+  #main,.section { overflow:visible !important; }
+  .table-wrap { max-height:none !important; overflow:visible !important; }
+  table { table-layout:fixed; word-break:break-word; }
+  th { background:#f5f5f5 !important; -webkit-print-color-adjust:exact !important; print-color-adjust:exact !important; }
+  .filter-bar,.search-wrap { display:none !important; }
+  .kpi-strip { display:grid !important; }
+  .badge { -webkit-print-color-adjust:exact !important; print-color-adjust:exact !important; }
+}
+</style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<nav id="sidebar">
+  <div class="sidebar-logo">
+    <div class="brand">Benchmark<br><span>Verano</span> 2026</div>
+    <div class="sub">Valle del Cauca · Colombia</div>
+  </div>
+  <div class="nav-group-label">Análisis</div>
+  <a class="nav-link active" onclick="navTo('exec',this)"><span class="nav-icon">●</span>Resumen Ejecutivo</a>
+  <a class="nav-link" onclick="navTo('bench',this)"><span class="nav-icon">●</span>Benchmark Categorías</a>
+  <a class="nav-link" onclick="navTo('ranking',this)"><span class="nav-icon">●</span>Rankings</a>
+  <a class="nav-link" onclick="navTo('duracion',this)"><span class="nav-icon">●</span>Duración vs Costo</a>
+  <a class="nav-link" onclick="navTo('outliers',this)"><span class="nav-icon">●</span>Outliers</a>
+  <a class="nav-link" onclick="navTo('base',this)"><span class="nav-icon">●</span>Base Completa</a>
+  <div class="sidebar-footer">
+    <div class="sidebar-copy">© 2026 · Análisis de Mercado</div>
+  </div>
+</nav>
+
+<!-- TOPBAR -->
+<div id="topbar">
+  <div class="topbar-left">
+    <span class="topbar-title">Campamentos de Verano — Valle del Cauca</span>
+    <span class="topbar-pill">2026</span>
+  </div>
+  <div class="topbar-right">
+    <span class="topbar-meta">28 programas · 6 entidades · 5 sedes</span>
+    <button id="btn-pdf" onclick="exportPDF()">⬇ Exportar PDF</button>
+  </div>
+</div>
+
+<!-- MAIN -->
+<main id="main">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-tag">Inteligencia de Mercado · Educación y Recreación</div>
+    <h1>Benchmark de Precios<br>Campamentos de Verano 2026</h1>
+    <div class="hero-meta">
+      <span>📍 Valle del Cauca + Bogotá</span>
+      <span>📅 Mayo – Agosto 2026</span>
+      <span>🏕️ 28 programas analizados</span>
+      <span>🏛️ 6 entidades</span>
+    </div>
+  </div>
+
+  <!-- KPI -->
+  <div class="kpi-strip">
+    <div class="kpi-card c1"><div class="kpi-label">Programas</div><div class="kpi-val">28</div><div class="kpi-sub">27 con costo conocido</div></div>
+    <div class="kpi-card c2"><div class="kpi-label">Precio Mínimo</div><div class="kpi-val">$81.6K</div><div class="kpi-sub">Kids English · Comfandi</div></div>
+    <div class="kpi-card c3"><div class="kpi-label">Precio Máximo</div><div class="kpi-val">$1.92M</div><div class="kpi-sub">Fútbol · 8 semanas</div></div>
+    <div class="kpi-card c4"><div class="kpi-label">Promedio Global</div><div class="kpi-val">$608K</div><div class="kpi-sub">Mediana: $385K</div></div>
+    <div class="kpi-card c5"><div class="kpi-label">Costo/Día Prom.</div><div class="kpi-val">$100K</div><div class="kpi-sub">Rango: $7.5K – $278K</div></div>
+  </div>
+
+  <!-- RESUMEN EJECUTIVO -->
+  <div class="section" id="exec">
+    <div class="section-header">
+      <div class="section-title">Resumen Ejecutivo</div>
+      <div class="section-desc">Hallazgos clave para toma de decisiones directivas</div>
+    </div>
+    <div class="bullets-grid">
+      <div class="bullet-card"><div class="bullet-icon">📊</div><div class="bullet-text"><strong>Categoría más costosa — Ingeniería:</strong> Promedio $640K, impulsado por universidades (Javeriana $750K–$1.39M; ICESI $950K–$1.2M). La más económica es Artístico ($242K promedio), con programas de larga duración que diluyen el costo diario.</div></div>
+      <div class="bullet-card"><div class="bullet-icon">🎯</div><div class="bullet-text"><strong>Rango competitivo típico:</strong> El 80% de programas se concentra entre <strong>$150K y $950K</strong>. El rango intercuartílico es $366K–$700K, marcando la banda de referencia para posicionamiento de mercado.</div></div>
+      <div class="bullet-card"><div class="bullet-icon">⏱️</div><div class="bullet-text"><strong>Duración dominante — 1 semana:</strong> 18 de 27 programas adoptan este formato. Los programas de 4 semanas ofrecen el mejor costo/día ($25K promedio). El único de 8 semanas (fútbol) supera $1.9M en erogación total.</div></div>
+      <div class="bullet-card"><div class="bullet-icon">🏛️</div><div class="bullet-text"><strong>Brecha por entidad:</strong> Las universidades cobran <strong>2–4× más</strong> que las cajas de compensación. Comfandi ofrece el abanico más amplio ($81.6K–$592K), actuando como referente de precio base del mercado.</div></div>
+      <div class="bullet-card"><div class="bullet-icon">⚡</div><div class="bullet-text"><strong>Outlier alto — Comfenalco:</strong> $547K por <strong>solo 2 días</strong> equivale a $273.6K/día, el costo diario más elevado del análisis. Hipótesis: evento masivo con infraestructura especial o error en el registro de duración.</div></div>
+      <div class="bullet-card"><div class="bullet-icon">💡</div><div class="bullet-text"><strong>Oportunidad — Diseño (Acad. Dibujo):</strong> Tres programas de 3–4 semanas a $380K–$470K representan el mejor valor por duración ($19K–$26K/día). Potencial de reposicionamiento premium sin necesidad de aumentar precio.</div></div>
+      <div class="bullet-card"><div class="bullet-icon">🗺️</div><div class="bullet-text"><strong>Geografía:</strong> <strong>Bogotá</strong> concentra la oferta premium (universidades, colegios). <strong>Cali</strong> ofrece la mayor diversidad ($81.6K–$1.92M). Cartago y Palmira son exclusivos de Comfandi, con precios intermedios.</div></div>
+    </div>
+  </div>
+
+  <!-- BENCHMARK -->
+  <div class="section" id="bench">
+    <div class="section-header">
+      <div class="section-title">Benchmark por Categoría</div>
+      <div class="section-desc">Estadísticas comparativas de precios por tipología de programa</div>
+    </div>
+    <div class="card">
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Categoría</th><th>N</th><th>Mínimo</th><th>Máximo</th><th>Promedio</th><th>Mediana</th><th>Rango</th><th>Prom. Costo/Día</th></tr></thead>
+          <tbody>
+            <tr><td><span class="badge badge-art">Artístico</span></td><td>2</td><td>$150,000</td><td>$334,300</td><td>$242,150</td><td>$242,150</td><td>$184,300</td><td>$37,180</td></tr>
+            <tr><td><span class="badge badge-dis">Diseño</span></td><td>3</td><td>$380,000</td><td>$470,000</td><td>$411,667</td><td>$385,000</td><td>$90,000</td><td>$22,722</td></tr>
+            <tr><td><span class="badge badge-idi">Idiomas</span></td><td>3</td><td>$81,600</td><td>$592,200</td><td>$389,733</td><td>$495,400</td><td>$510,600</td><td>$77,947</td></tr>
+            <tr><td><span class="badge badge-ing">Ingeniería</span></td><td>13</td><td>$366,000</td><td>$1,390,000</td><td>$639,769</td><td>$366,000</td><td>$1,024,000</td><td>$147,231</td></tr>
+            <tr><td><span class="badge badge-otr">Otro</span></td><td>1</td><td>$950,000</td><td>$950,000</td><td>$950,000</td><td>$950,000</td><td>—</td><td>$190,000</td></tr>
+            <tr><td><span class="badge badge-rec">Recreativo</span></td><td>5*</td><td>$204,000</td><td>$1,920,000</td><td>$862,640</td><td>$700,000</td><td>$1,716,000</td><td>$117,160</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="info-banner">* Recreativo excluye Vacaciones Comfandi (costo no disponible — categoría A/B sin valor numérico). Costo/Día calculado sobre programas con datos completos.</div>
+  </div>
+
+  <!-- RANKINGS -->
+  <div class="section" id="ranking">
+    <div class="section-header">
+      <div class="section-title">Rankings por Precio</div>
+      <div class="section-desc">Top 5 programas más caros y más económicos del mercado</div>
+    </div>
+    <div class="grid-2">
+      <div class="card">
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th colspan="7"><div class="ranking-label hi" style="padding:12px 14px 0;">🔴 Top 5 Más Caros</div></th></tr>
+              <tr><th>#</th><th>Nombre</th><th>Entidad</th><th>Cat.</th><th>Duración</th><th>Costo</th><th>$/Día</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>1</td><td class="td-name">Campamento de Futbol</td><td>Gato Pérez</td><td><span class="badge badge-rec">Rec.</span></td><td>8 sem.</td><td class="val-hi">$1,920,000</td><td>$48,000</td></tr>
+              <tr><td>2</td><td class="td-name">Esc. Verano - Senior</td><td>U. Javeriana</td><td><span class="badge badge-ing">Ing.</span></td><td>1 sem.</td><td class="val-hi">$1,390,000</td><td class="val-hi">$278,000</td></tr>
+              <tr><td>3</td><td class="td-name">Misión Robótica</td><td>U. ICESI</td><td><span class="badge badge-ing">Ing.</span></td><td>1 sem.</td><td class="val-hi">$1,200,000</td><td class="val-hi">$240,000</td></tr>
+              <tr><td>4</td><td class="td-name">Misión IA</td><td>U. ICESI</td><td><span class="badge badge-ing">Ing.</span></td><td>1 sem.</td><td>$950,000</td><td>$190,000</td></tr>
+              <tr><td>5</td><td class="td-name">Emprendimiento</td><td>U. ICESI</td><td><span class="badge badge-otr">Otro</span></td><td>1 sem.</td><td>$950,000</td><td>$190,000</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="card">
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th colspan="7"><div class="ranking-label lo" style="padding:12px 14px 0;">🟢 Top 5 Más Económicos</div></th></tr>
+              <tr><th>#</th><th>Nombre</th><th>Entidad</th><th>Cat.</th><th>Duración</th><th>Costo</th><th>$/Día</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>1</td><td class="td-name">Kids English Club</td><td>Comfandi</td><td><span class="badge badge-idi">Idi.</span></td><td>1 sem.</td><td class="val-lo">$81,600</td><td class="val-lo">$16,320</td></tr>
+              <tr><td>2</td><td class="td-name">Clase de Baile</td><td>Swing Latino</td><td><span class="badge badge-art">Art.</span></td><td>4 sem.</td><td class="val-lo">$150,000</td><td class="val-lo">$7,500</td></tr>
+              <tr><td>3</td><td class="td-name">Recreación Creativa</td><td>Comfandi</td><td><span class="badge badge-rec">Rec.</span></td><td>1 sem.</td><td class="val-lo">$204,000</td><td>$40,800</td></tr>
+              <tr><td>4</td><td class="td-name">Taller Danza Exp.</td><td>Comfandi</td><td><span class="badge badge-art">Art.</span></td><td>1 sem.</td><td>$334,300</td><td>$66,860</td></tr>
+              <tr><td>5</td><td class="td-name">Confección Camisetas</td><td>Acad. Dibujo</td><td><span class="badge badge-dis">Dis.</span></td><td>4 sem.</td><td>$380,000</td><td class="val-lo">$19,000</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DURACIÓN -->
+  <div class="section" id="duracion">
+    <div class="section-header">
+      <div class="section-title">Duración vs. Costo</div>
+      <div class="section-desc">Relación entre extensión del programa y precio; eficiencia por formato</div>
+    </div>
+    <div class="card">
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Duración</th><th>N</th><th>Días Est.</th><th>Rango Costo Total</th><th>Prom. Costo/Día</th><th>Observación</th></tr></thead>
+          <tbody>
+            <tr><td><strong>2 días</strong></td><td>1</td><td>2</td><td>$547,200</td><td class="val-hi">$273,600</td><td>⚠ Outlier extremo en costo/día</td></tr>
+            <tr><td><strong>1 semana</strong></td><td>18</td><td>5</td><td>$81,600 – $1,390,000</td><td>$130,164</td><td>Formato dominante (67% de programas)</td></tr>
+            <tr><td><strong>3 semanas</strong></td><td>1</td><td>15</td><td>$385,000</td><td>$25,667</td><td>Buen valor relativo</td></tr>
+            <tr><td><strong>4 semanas</strong></td><td>4</td><td>20</td><td>$150,000 – $700,000</td><td class="val-lo">$24,813</td><td>Mejor costo/día del mercado</td></tr>
+            <tr><td><strong>8 semanas</strong></td><td>1</td><td>40</td><td>$1,920,000</td><td>$48,000</td><td>Mayor erogación total; fútbol especializado</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- OUTLIERS -->
+  <div class="section" id="outliers">
+    <div class="section-header">
+      <div class="section-title">Análisis de Outliers</div>
+      <div class="section-desc">Programas con precios significativamente fuera del rango típico de su categoría</div>
+    </div>
+    <div class="outlier-grid">
+      <div class="outlier-card hi">
+        <div class="outlier-head hi">⬆ Outliers — Precio Elevado</div>
+        <div class="outlier-item">
+          <div class="on">Mega Campamento Comfenalco · $547,200 / 2 días</div>
+          <div class="od">Costo/día $273,600 — el más alto del mercado. Con solo 2 días cobra similar a una semana universitaria. Hipótesis: evento masivo con infraestructura premium, o error en la duración registrada.</div>
+        </div>
+        <div class="outlier-item">
+          <div class="on">Escuela de Verano Senior — Javeriana · $1,390,000</div>
+          <div class="od">$278K/día. Precio/semana más alto del análisis. Justificado por marca universitaria, certificación académica y sede Bogotá. Es 3.8× la mediana de la categoría Ingeniería.</div>
+        </div>
+        <div class="outlier-item">
+          <div class="on">Misión Robótica — ICESI · $1,200,000</div>
+          <div class="od">$240K/día. ICESI posiciona ambos programas (IA + Robótica) en la cima del mercado caleño. Diferencial basado en marca universitaria acreditada y contenido certificable.</div>
+        </div>
+        <div class="outlier-item">
+          <div class="on">Curso Vacacional — Gimnasio Moderno · $942,000</div>
+          <div class="od">Único colegio privado premium del análisis. 4.6× superior a programas recreativos de cajas de compensación. Categoría Recreativo para 4–12 años, Bogotá.</div>
+        </div>
+      </div>
+      <div class="outlier-card lo">
+        <div class="outlier-head lo">⬇ Outliers — Precio Económico</div>
+        <div class="outlier-item">
+          <div class="on">Curso Kids English Club — Comfandi · $81,600</div>
+          <div class="od">Precio más bajo del mercado. Idiomas para 4–6 años, 1 semana, Cartago. Probable subsidio de caja de compensación. Costo/día $16,320 — diferencial inalcanzable para la oferta privada.</div>
+        </div>
+        <div class="outlier-item">
+          <div class="on">Clase de Baile — Swing Latino · $150,000 / 4 semanas</div>
+          <div class="od">$7,500/día — costo diario más bajo del mercado. Entidad pequeña especializada. Oportunidad de reposicionamiento: 4 semanas de formación artística con margen ampliable.</div>
+        </div>
+        <div class="outlier-item">
+          <div class="on">Diseño (3 programas Acad. Dibujo) · $380K–$470K / 3–4 semanas</div>
+          <div class="od">$19K–$26K/día. Para la duración ofrecida, representan el mejor valor del mercado. Probablemente subvalorados: 4 semanas de formación artística especializada al mismo precio que 1 semana universitaria.</div>
+        </div>
+        <div class="outlier-item">
+          <div class="on">Recreación Creativa — Comfandi · $204,000</div>
+          <div class="od">El más barato de la categoría Recreativo para adultos (+17 años). Sede Palmira. El subsidio de la caja de compensación explica el posicionamiento de precio.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BASE COMPLETA -->
+  <div class="section" id="base">
+    <div class="section-header">
+      <div class="section-title">Base Completa</div>
+      <div class="section-desc">Tabla filtrable con los 28 programas analizados</div>
+    </div>
+    <div class="card card-pad">
+      <div class="search-wrap">
+        <input type="text" id="search-input" placeholder="🔍 Buscar por nombre, entidad, sede o categoría…" oninput="filterTable()">
+      </div>
+      <div class="filter-bar" id="filter-bar">
+        <button class="filter-btn active" onclick="setFilter('Todos')">Todos</button>
+        <button class="filter-btn" onclick="setFilter('Recreativo')">Recreativo</button>
+        <button class="filter-btn" onclick="setFilter('Ingeniería')">Ingeniería</button>
+        <button class="filter-btn" onclick="setFilter('Idiomas')">Idiomas</button>
+        <button class="filter-btn" onclick="setFilter('Artístico')">Artístico</button>
+        <button class="filter-btn" onclick="setFilter('Diseño')">Diseño</button>
+        <button class="filter-btn" onclick="setFilter('Otro')">Otro</button>
+      </div>
+      <div class="table-wrap">
+        <table id="tbl-base">
+          <thead><tr><th>Nombre</th><th>Entidad</th><th>Categoría</th><th>Edad</th><th>Costo 2026</th><th>Duración</th><th>Costo/Día</th><th>Fechas</th><th>Sede</th></tr></thead>
+          <tbody id="tbl-base-body"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<script>
+const DATA = [
+  {nombre:"Mega Campamento Comfenalco",entidad:"Comfenalco",categoria:"Recreativo",edad:"12 a 15",costo:547200,dias:2,cpd:273600,duracion:"2 días",fechas:"Julio",sede:"Cali"},
+  {nombre:"Vacaciones Comfandi",entidad:"Comfandi",categoria:"Recreativo",edad:"7 a 16",costo:null,dias:5,cpd:null,duracion:"1 semana",fechas:"Junio",sede:"Cali"},
+  {nombre:"Activa tu lado Bilingüe - Presencial",entidad:"Comfandi",categoria:"Idiomas",edad:"Todas",costo:592200,dias:5,cpd:118440,duracion:"1 semana",fechas:"Mayo",sede:"Cali"},
+  {nombre:"Activa tu lado Bilingüe - Virtual",entidad:"Comfandi",categoria:"Idiomas",edad:"Todas",costo:495400,dias:5,cpd:99080,duracion:"1 semana",fechas:"Mayo",sede:"Cali"},
+  {nombre:"Exploradores Digitales Lego Programable",entidad:"Comfandi",categoria:"Ingeniería",edad:"7 a 12",costo:366000,dias:5,cpd:73200,duracion:"1 semana",fechas:"Junio",sede:"Cartago"},
+  {nombre:"Exploradores Digitales Programación con Roblox",entidad:"Comfandi",categoria:"Ingeniería",edad:"8 a 12",costo:366000,dias:5,cpd:73200,duracion:"1 semana",fechas:"Junio",sede:"Cartago"},
+  {nombre:"Recreación Creativa",entidad:"Comfandi",categoria:"Recreativo",edad:"Mayor a 17",costo:204000,dias:5,cpd:40800,duracion:"1 semana",fechas:"Junio",sede:"Palmira"},
+  {nombre:"Exploradores digitales: Diseño y Desarrollo De Apps",entidad:"Comfandi",categoria:"Ingeniería",edad:"12 a 15",costo:366000,dias:5,cpd:73200,duracion:"1 semana",fechas:"Junio",sede:"Cartago"},
+  {nombre:"Exploradores Digitales Roblox Diseño Y Programacion",entidad:"Comfandi",categoria:"Ingeniería",edad:"6 a 13",costo:366000,dias:5,cpd:73200,duracion:"1 semana",fechas:"Mayo",sede:"Palmira"},
+  {nombre:"Curso Kids English Club",entidad:"Comfandi",categoria:"Idiomas",edad:"4 a 6",costo:81600,dias:5,cpd:16320,duracion:"1 semana",fechas:"Mayo",sede:"Cartago"},
+  {nombre:"Exploradores Digitales Minecraft",entidad:"Comfandi",categoria:"Ingeniería",edad:"9 a 11",costo:366000,dias:5,cpd:73200,duracion:"1 semana",fechas:"Mayo",sede:"Cali"},
+  {nombre:"Exploradores Digitales Robótica Con Arduino",entidad:"Comfandi",categoria:"Ingeniería",edad:"9 a 11",costo:366000,dias:5,cpd:73200,duracion:"1 semana",fechas:"Mayo",sede:"Cali"},
+  {nombre:"Taller Danza Experimental Niños",entidad:"Comfandi",categoria:"Artístico",edad:"11 a 18",costo:334300,dias:5,cpd:66860,duracion:"1 semana",fechas:"Mayo",sede:"Tuluá"},
+  {nombre:"Exploradores Digitales Diseño De Juegos Con Unity",entidad:"Comfandi",categoria:"Ingeniería",edad:"14 a 15",costo:366000,dias:5,cpd:73200,duracion:"1 semana",fechas:"Mayo",sede:"Cali"},
+  {nombre:"AVENTURAS POR JAPÓN Vacaciones Recreativas",entidad:"Colombo Japonés",categoria:"Recreativo",edad:"9 a 14",costo:700000,dias:20,cpd:35000,duracion:"4 semanas",fechas:"Junio",sede:"Cali"},
+  {nombre:"Escuela de Verano - Junior",entidad:"U. Javeriana",categoria:"Ingeniería",edad:"12 a 14",costo:790000,dias:5,cpd:158000,duracion:"1 semana",fechas:"Junio",sede:"Bogotá"},
+  {nombre:"Escuela de Verano - Kids",entidad:"U. Javeriana",categoria:"Ingeniería",edad:"8 a 11",costo:750000,dias:5,cpd:150000,duracion:"1 semana",fechas:"Julio",sede:"Bogotá"},
+  {nombre:"Escuela de Verano - Senior",entidad:"U. Javeriana",categoria:"Ingeniería",edad:"15 a 18",costo:1390000,dias:5,cpd:278000,duracion:"1 semana",fechas:"Agosto",sede:"Bogotá"},
+  {nombre:"Misión IA",entidad:"U. ICESI",categoria:"Ingeniería",edad:"14 a 17",costo:950000,dias:5,cpd:190000,duracion:"1 semana",fechas:"Junio",sede:"Cali"},
+  {nombre:"Misión Robótica",entidad:"U. ICESI",categoria:"Ingeniería",edad:"10 a 14",costo:1200000,dias:5,cpd:240000,duracion:"1 semana",fechas:"Junio",sede:"Cali"},
+  {nombre:"Emprendimiento",entidad:"U. ICESI",categoria:"Otro",edad:"14 a 17",costo:950000,dias:5,cpd:190000,duracion:"1 semana",fechas:"Junio",sede:"Cali"},
+  {nombre:"Técnicas de animación 2D",entidad:"Fund. Acad. Dibujo Prof.",categoria:"Diseño",edad:"11 a 18",costo:385000,dias:15,cpd:25667,duracion:"3 semanas",fechas:"Julio",sede:"Cali"},
+  {nombre:"Pintura y Modelado",entidad:"Fund. Acad. Dibujo Prof.",categoria:"Diseño",edad:"11 a 18",costo:470000,dias:20,cpd:23500,duracion:"4 semanas",fechas:"Julio",sede:"Cali"},
+  {nombre:"Confección y Estampación de Camisetas",entidad:"Fund. Acad. Dibujo Prof.",categoria:"Diseño",edad:"11 a 18",costo:380000,dias:20,cpd:19000,duracion:"4 semanas",fechas:"Julio",sede:"Cali"},
+  {nombre:"Campamento de Futbol",entidad:"Acad. Fútbol Gato Pérez",categoria:"Recreativo",edad:"11 a 18",costo:1920000,dias:40,cpd:48000,duracion:"8 semanas",fechas:"Junio",sede:"Cali"},
+  {nombre:"The Maker 2026",entidad:"ECI Julio Garavito",categoria:"Ingeniería",edad:"11 a 18",costo:675000,dias:5,cpd:135000,duracion:"1 semana",fechas:"Junio",sede:"Bogotá"},
+  {nombre:"Curso Vacacional",entidad:"Gimnasio Moderno",categoria:"Recreativo",edad:"4 a 12",costo:942000,dias:5,cpd:188400,duracion:"1 semana",fechas:"Junio",sede:"Bogotá"},
+  {nombre:"Clase de Baile",entidad:"Swing Latino",categoria:"Artístico",edad:"3 a 14",costo:150000,dias:20,cpd:7500,duracion:"4 semanas",fechas:"Junio",sede:"Cali"},
+];
+
+const BADGE = {'Artístico':'badge-art','Diseño':'badge-dis','Idiomas':'badge-idi','Ingeniería':'badge-ing','Recreativo':'badge-rec','Otro':'badge-otr'};
+const fmt = n => n!=null ? '$'+n.toLocaleString('es-CO') : 'N/C';
+
+function navTo(id,el){
+  document.getElementById(id).scrollIntoView({behavior:'smooth',block:'start'});
+  document.querySelectorAll('.nav-link').forEach(l=>l.classList.remove('active'));
+  el.classList.add('active');
+}
+
+function populateTable(rows){
+  document.getElementById('tbl-base-body').innerHTML = rows.map(r=>`
+    <tr>
+      <td class="td-name">${r.nombre}</td>
+      <td>${r.entidad}</td>
+      <td><span class="badge ${BADGE[r.categoria]||'badge-otr'}">${r.categoria}</span></td>
+      <td>${r.edad}</td>
+      <td>${r.costo!=null?fmt(r.costo):'<em style="color:var(--text-dim)">No disponible</em>'}</td>
+      <td>${r.duracion}</td>
+      <td>${r.cpd!=null?fmt(r.cpd):'<em style="color:var(--text-dim)">N/C</em>'}</td>
+      <td>${r.fechas}</td>
+      <td>${r.sede}</td>
+    </tr>`).join('');
+}
+populateTable(DATA);
+
+let activeFilter='Todos';
+function setFilter(cat){
+  activeFilter=cat;
+  document.querySelectorAll('#filter-bar .filter-btn').forEach(b=>b.classList.toggle('active',b.textContent===cat));
+  filterTable();
+}
+function filterTable(){
+  const q=document.getElementById('search-input').value.toLowerCase();
+  populateTable(DATA.filter(r=>{
+    const mc=activeFilter==='Todos'||r.categoria===activeFilter;
+    const mq=!q||[r.nombre,r.entidad,r.sede,r.categoria].some(f=>f.toLowerCase().includes(q));
+    return mc&&mq;
+  }));
+}
+
+function exportPDF(){
+  const btn=document.getElementById('btn-pdf');
+  btn.textContent='⏳ Preparando…';btn.disabled=true;
+  setTimeout(()=>{window.print();btn.textContent='⬇ Exportar PDF';btn.disabled=false;},400);
+}
+</script>
+</body>
+</html>
