@@ -253,12 +253,13 @@ tr:hover td { background:#fafafa; color:var(--text); }
     <div class="sub">Valle del Cauca · Colombia</div>
   </div>
   <div class="nav-group-label">Análisis</div>
-  <!-- <a class="nav-link active" onclick="navTo('exec',this)"><span class="nav-icon">●</span>Resumen Ejecutivo</a>-->
+  <!--<a class="nav-link active" onclick="navTo('exec',this)"><span class="nav-icon">●</span>Resumen Ejecutivo</a>-->
+  <a class="nav-link" onclick="navTo('base',this)"><span class="nav-icon">●</span>Base Completa</a>
   <a class="nav-link" onclick="navTo('bench',this)"><span class="nav-icon">●</span>Benchmark Categorías</a>
   <a class="nav-link" onclick="navTo('ranking',this)"><span class="nav-icon">●</span>Rankings</a>
-  <a class="nav-link" onclick="navTo('duracion',this)"><span class="nav-icon">●</span>Duración vs Costo</a>
-  <a class="nav-link" onclick="navTo('outliers',this)"><span class="nav-icon">●</span>Outliers</a>
-  <a class="nav-link" onclick="navTo('base',this)"><span class="nav-icon">●</span>Base Completa</a>
+  <!--<a class="nav-link" onclick="navTo('duracion',this)"><span class="nav-icon">●</span>Duración vs Costo</a>-->
+  <!--<a class="nav-link" onclick="navTo('outliers',this)"><span class="nav-icon">●</span>Outliers</a>-->
+
   <div class="sidebar-footer">
     <div class="sidebar-copy">© 2026 · Análisis de Mercado</div>
   </div>
@@ -271,7 +272,7 @@ tr:hover td { background:#fafafa; color:var(--text); }
     <span class="topbar-pill">2026</span>
   </div>
   <div class="topbar-right">
-    <span class="topbar-meta">28 programas · 6 entidades · 5 sedes</span>
+    <span class="topbar-meta">24 programas · 11 entidades · 3 sedes</span>
     <button id="btn-pdf" onclick="exportPDF()">⬇ Exportar PDF</button>
   </div>
 </div>
@@ -286,19 +287,21 @@ tr:hover td { background:#fafafa; color:var(--text); }
     <div class="hero-meta">
       <span>📍 Valle del Cauca + Bogotá</span>
       <span>📅 Mayo – Agosto 2026</span>
-      <span>🏕️ 28 programas analizados</span>
-      <span>🏛️ 6 entidades</span>
+      <span>🏕️ 24 programas analizados</span>
+      <span>🏛️ 11 entidades</span>
     </div>
   </div>
 
   <!-- KPI -->
   <div class="kpi-strip">
-    <div class="kpi-card c1"><div class="kpi-label">Programas</div><div class="kpi-val">18</div><div class="kpi-sub">Todos con costo conocido</div></div>
+    <div class="kpi-card c1"><div class="kpi-label">Programas</div><div class="kpi-val">23</div><div class="kpi-sub">Todos con costo conocido</div></div>
     <div class="kpi-card c2"><div class="kpi-label">Precio Mínimo</div><div class="kpi-val">$144.3K</div><div class="kpi-sub">Taller de Robótica · Comfandi</div></div>
-    <div class="kpi-card c3"><div class="kpi-label">Precio Máximo</div><div class="kpi-val">$1.2M</div><div class="kpi-sub">Misión Robótica · U. ICESI</div></div>
-    <div class="kpi-card c4"><div class="kpi-label">Promedio Global</div><div class="kpi-val">$500K</div><div class="kpi-sub">Mediana: $383K</div></div>
+    <div class="kpi-card c3"><div class="kpi-label">Precio Máximo</div><div class="kpi-val">$1.55M</div><div class="kpi-sub">Summer Splash · Tia Nora</div></div>
+    <div class="kpi-card c4"><div class="kpi-label">Promedio Global</div><div class="kpi-val">$641K</div><div class="kpi-sub">Mediana: $509K</div></div>
     <div class="kpi-card c5"><div class="kpi-label">Ciudades Evaluadas</div><div class="kpi-val">3</div><div class="kpi-sub">Cali · Palmira · Tuluá</div></div>
   </div>
+
+
 
   <!-- RESUMEN EJECUTIVO -->
   <!--<div class="section" id="exec">
@@ -315,12 +318,14 @@ tr:hover td { background:#fafafa; color:var(--text); }
       <div class="bullet-card"><div class="bullet-icon">💡</div><div class="bullet-text"><strong>Oportunidad — Diseño (Acad. Dibujo):</strong> Tres programas de 3–4 semanas a $380K–$470K representan el mejor valor por duración ($19K–$26K/día). Potencial de reposicionamiento premium sin necesidad de aumentar precio.</div></div>
       <div class="bullet-card"><div class="bullet-icon">🗺️</div><div class="bullet-text"><strong>Geografía:</strong> <strong>Bogotá</strong> concentra la oferta premium (universidades, colegios). <strong>Cali</strong> ofrece la mayor diversidad ($81.6K–$1.92M). Cartago y Palmira son exclusivos de Comfandi, con precios intermedios.</div></div>
     </div>
-  </div> -->
+  </div>-->
+
+  <!-- BASE COMPLETA -->
   <!-- BASE COMPLETA -->
   <div class="section" id="base">
     <div class="section-header">
       <div class="section-title">Base Completa</div>
-      <div class="section-desc">Tabla filtrable con los 28 programas analizados</div>
+      <div class="section-desc">Tabla filtrable con los 23 programas analizados</div>
     </div>
     <div class="card card-pad">
       <div class="search-wrap">
@@ -356,16 +361,16 @@ tr:hover td { background:#fafafa; color:var(--text); }
         <table>
           <thead><tr><th>Categoría</th><th>N</th><th>Mínimo</th><th>Máximo</th><th>Promedio</th><th>Mediana</th><th>Prom. Costo/Día</th></tr></thead>
           <tbody>
-            <tr><td><span class="badge badge-art">Artístico</span></td><td>3</td><td>$150,000</td><td>$700,000</td><td>$394,767</td><td>$334,300</td><td>$36,453</td></tr>
+            <tr><td><span class="badge badge-art">Artístico</span></td><td>4</td><td>$150,000</td><td>$950,000</td><td>$533,575</td><td>$517,150</td><td>$51,090</td></tr>
             <tr><td><span class="badge badge-dis">Diseño</span></td><td>3</td><td>$380,000</td><td>$470,000</td><td>$411,667</td><td>$385,000</td><td>$22,722</td></tr>
-            <tr><td><span class="badge badge-ing">Ingeniería</span></td><td>7</td><td>$144,300</td><td>$1,200,000</td><td>$536,900</td><td>$366,000</td><td>$108,411</td></tr>
+            <tr><td><span class="badge badge-ing">Ingeniería</span></td><td>8</td><td>$144,300</td><td>$1,200,000</td><td>$588,538</td><td>$366,000</td><td>$106,734</td></tr>
             <tr><td><span class="badge badge-otr">Business</span></td><td>1</td><td>$950,000</td><td>$950,000</td><td>$950,000</td><td>$950,000</td><td>$190,000</td></tr>
-            <tr><td><span class="badge badge-rec">Recreativo</span></td><td>4</td><td>$204,000</td><td>$700,000</td><td>$466,875</td><td>$481,750</td><td>$108,165</td></tr>
+            <tr><td><span class="badge badge-rec">Recreativo</span></td><td>8</td><td>$204,000</td><td>$1,550,000</td><td>$833,438</td><td>$725,000</td><td>$82,082</td></tr>
           </tbody>
         </table>
       </div>
     </div>
-    <!--<div class="info-banner">* Recreativo excluye Vacaciones Constructivas Comfandi (costo no disponible — categoría A/B sin valor numérico). Costo/Día calculado sobre programas con datos completos.</div>-->
+    <div class="info-banner">* Recreativo excluye Vacaciones Comfandi (costo no disponible — categoría A/B sin valor numérico). Costo/Día calculado sobre programas con datos completos.</div>
   </div>
 
   <!-- RANKINGS -->
@@ -383,11 +388,11 @@ tr:hover td { background:#fafafa; color:var(--text); }
               <tr><th>#</th><th>Nombre</th><th>Entidad</th><th>Cat.</th><th>Duración</th><th>Costo</th><th>$/Día</th></tr>
             </thead>
             <tbody>
-              <tr><td>1</td><td class="td-name">Misión Robótica</td><td>U. ICESI</td><td><span class="badge badge-ing">Ing.</span></td><td>5 días</td><td class="val-hi">$1,200,000</td><td class="val-hi">$240,000</td></tr>
-              <tr><td>2</td><td class="td-name">Misión IA</td><td>U. ICESI</td><td><span class="badge badge-ing">Ing.</span></td><td>5 días</td><td class="val-hi">$950,000</td><td>$190,000</td></tr>
-              <tr><td>3</td><td class="td-name">Emprendimiento</td><td>U. ICESI</td><td><span class="badge badge-otr">Business</span></td><td>5 días</td><td class="val-hi">$950,000</td><td>$190,000</td></tr>
-              <tr><td>4</td><td class="td-name">AVENTURAS POR JAPÓN (Artes Marc.)</td><td>Colombo Japonés</td><td><span class="badge badge-rec">Rec.</span></td><td>20 días</td><td>$700,000</td><td>$35,000</td></tr>
-              <tr><td>5</td><td class="td-name">AVENTURAS POR JAPÓN (Dibujo)</td><td>Colombo Japonés</td><td><span class="badge badge-art">Art.</span></td><td>20 días</td><td>$700,000</td><td>$35,000</td></tr>
+              <tr><td>1</td><td class="td-name">Summer Camp Splash Edition</td><td>Tia Nora Jardín Infantil</td><td><span class="badge badge-rec">Rec.</span></td><td>25 días</td><td class="val-hi">$1,550,000</td><td>$62,000</td></tr>
+              <tr><td>2</td><td class="td-name">Wild & Wise Summer Camp</td><td>The British School</td><td><span class="badge badge-rec">Rec.</span></td><td>25 días</td><td class="val-hi">$1,300,000</td><td>$52,000</td></tr>
+              <tr><td>3</td><td class="td-name">Misión Robótica</td><td>U. ICESI</td><td><span class="badge badge-ing">Ing.</span></td><td>5 días</td><td class="val-hi">$1,200,000</td><td class="val-hi">$240,000</td></tr>
+              <tr><td>4</td><td class="td-name">Summer Camp Little Explorers Ed.</td><td>Liceo Belalcazar</td><td><span class="badge badge-rec">Rec.</span></td><td>20 días</td><td class="val-hi">$1,200,000</td><td>$60,000</td></tr>
+              <tr><td>5</td><td class="td-name">Misión IA</td><td>U. ICESI</td><td><span class="badge badge-ing">Ing.</span></td><td>5 días</td><td>$950,000</td><td>$190,000</td></tr>
             </tbody>
           </table>
         </div>
@@ -462,8 +467,8 @@ tr:hover td { background:#fafafa; color:var(--text); }
       </div>
       <div class="outlier-card lo">
         <div class="outlier-head lo">⬇ Outliers — Precio Económico</div>
-        <div class="outlier-item">
-          <!--<div class="on">Curso Kids English Club — Comfandi · $81,600</div>
+        <!--<div class="outlier-item">
+          <div class="on">Curso Kids English Club — Comfandi · $81,600</div>
           <div class="od">Precio más bajo del mercado. Idiomas para 4–6 años, 1 semana, Cartago. Probable subsidio de caja de compensación. Costo/día $16,320 — diferencial inalcanzable para la oferta privada.</div>
         </div>-->
         <div class="outlier-item">
@@ -481,6 +486,7 @@ tr:hover td { background:#fafafa; color:var(--text); }
       </div>
     </div>
   </div>
+
 
 
 </main>
@@ -517,6 +523,12 @@ const DATA = [
   //{nombre:"The Maker 2026",entidad:"ECI Julio Garavito",categoria:"Ingeniería",edad:"11 a 18",costo:675000,dias:5,cpd:135000,duracion:"1 semana",fechas:"Junio",sede:"Bogotá"},
   //{nombre:"Curso Vacacional",entidad:"Gimnasio Moderno",categoria:"Recreativo",edad:"4 a 12",costo:942000,dias:5,cpd:188400,duracion:"1 semana",fechas:"Junio",sede:"Bogotá"},
   {nombre:"Clase de Baile",entidad:"Swing Latino",categoria:"Artístico",edad:"3 a 14",costo:150000,dias:20,cpd:7500,duracion:"4 semanas",fechas:"Junio",sede:"Cali"},
+  {nombre:"Wild & Wise Summer Camp",entidad:"The British School",categoria:"Recreativo",edad:"3 a 10",costo:1300000,dias:25,cpd:52000,duracion:"5 semanas",fechas:"Julio",sede:"Cali"},
+  {nombre:"Summer Camp",entidad:"Piaget High School",categoria:"Recreativo",edad:"Desde 3 años",costo:750000,dias:15,cpd:50000,duracion:"3 semanas",fechas:"Julio",sede:"Cali"},
+  {nombre:"Summer Camp Splash Edition",entidad:"Tia Nora Jardín Infantil",categoria:"Recreativo",edad:"Niños",costo:1550000,dias:25,cpd:62000,duracion:"5 semanas",fechas:"Julio",sede:"Cali"},
+  {nombre:"Summer Adventure (Robótica/Actividades maker)",entidad:"Colombo Americano",categoria:"Ingeniería",edad:"Niños",costo:950000,dias:10,cpd:95000,duracion:"2 semanas",fechas:"Junio-Julio",sede:"Cali"},
+  //{nombre:"Summer Adventure(Actividades maker)",entidad:"Colombo Americano",categoria:"Artístico",edad:"Niños",costo:950000,dias:10,cpd:95000,duracion:"10 días",fechas:"Junio-Julio",sede:"Cali"},
+  {nombre:"Summer Camp Little Explorers Edition",entidad:"Liceo Belalcazar",categoria:"Recreativo",edad:"3 a 10",costo:1200000,dias:20,cpd:60000,duracion:"4 semanas",fechas:"Julio",sede:"Cali"},
 ];
 
 const BADGE = {'Artístico':'badge-art','Diseño':'badge-dis','Ingeniería':'badge-ing','Recreativo':'badge-rec','Business':'badge-otr'};
@@ -545,17 +557,14 @@ function populateTable(rows){
 populateTable(DATA);
 
 let activeFilter='Todos';
+let sortDir=-1;
+let sortCol=null;
+
 function setFilter(cat){
   activeFilter=cat;
   document.querySelectorAll('#filter-bar .filter-btn').forEach(b=>b.classList.toggle('active',b.textContent===cat));
   filterTable();
 }
-
-let sortDir = -1;
-let sortCol = null;
-
-
-
 function filterTable(){
   const q=document.getElementById('search-input').value.toLowerCase();
   let rows=DATA.filter(r=>{
@@ -572,11 +581,9 @@ function filterTable(){
   }
   populateTable(rows);
 }
-
 function sortTable(col){
   if(sortCol===col) sortDir*=-1;
-  else{ sortCol=col; sortDir=-1; }
-  // resetea todos los iconos y activa solo el de la columna clickeada
+  else{sortCol=col;sortDir=-1;}
   document.getElementById('sort-icon-costo').textContent='↕';
   document.getElementById('sort-icon-cpd').textContent='↕';
   document.getElementById('sort-icon-'+col).textContent=sortDir===-1?'↓':'↑';
